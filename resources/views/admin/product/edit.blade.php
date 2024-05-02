@@ -193,7 +193,7 @@
                                         <div class="col-md-3">
                                             <div class="p-2 border mb-3">
                                                 Color: <input type="checkbox" name="colors[{{ $colorItem->id }}]" value="{{ $colorItem->id }}"> {{ $colorItem->name }}
-                                                <br>
+                                                <br><br>
                                                 Quantity: <input type="number" name="colorquantity[{{ $colorItem->id }}]" id="" style="width: 70px; border:1px solid #DBDBDB; border-radius: 3px;">
                                             </div>
                                         </div>
@@ -205,37 +205,50 @@
                                         @endforelse
                                 </div>
                             </div>
-
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Color Name</th>
-                                        <th>Quantity</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    @foreach($product->productColors as $productColor)
-                                    <tr>
-                                        <!-- Name -->
-                                        <td>
-
-                                        </td>
-
-                                        <!-- Quantity -->
-                                        <td>
-
-                                        </td>
-
-                                        <!-- Action -->
-                                        <td>
-
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Color Name</th>
+                                            <th>Quantity</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+    
+                                    <tbody>
+                                        @foreach($product->productColors as $productColor)
+                                        <tr>
+                                            <!-- Name -->
+                                            <td>
+                                                @if($productColor->color)
+                                                {{ $productColor->color->name }}
+                                                <!--  -->
+                                                
+                                                @else
+                                                No Color Found
+    
+                                                @endif
+                                            </td>
+    
+                                            <!-- Quantity -->
+                                            <td>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control form-control-sm" style="width: 1px;">
+                                                    <button class="btn btn-primary btn-sm text-white">Update</button>
+                                                </div>
+    
+                                            </td>
+    
+                                            <!-- Action -->
+                                            <td>
+                                                <button class="btn btn-danger btn-sm text-white">Delete</button>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
                             
                         </div>

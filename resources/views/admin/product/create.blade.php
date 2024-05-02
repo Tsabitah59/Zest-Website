@@ -8,7 +8,7 @@
             <div class="card-header">
                 <h3>
                     Product
-                    <a href="{{ route('products-index') }}" class="btn btn-danger text-white">back</a>
+                    <a href="{{ route('products-index') }}" class="btn btn-danger text-white float-end">back</a>
                 </h3>
             </div>
     
@@ -166,7 +166,7 @@
                                     <div class="col-md-3">
                                         <div class="p-2 border mb-3">
                                             Color : <input type="checkbox" name="colors[{{ $colorItem->id }}]" value="{{ $colorItem->id }}" > {{ $colorItem->name }}
-                                            <br>
+                                            <br><br>
                                             Quantity : <input type="number" name="colorquantity[{{ $colorItem->id }}]" style="width: 70px; border:1px solid #DBDBDB; border-radius: 3px;">
 
                                         </div>
