@@ -165,7 +165,7 @@
                                     @forelse($colors as $colorItem)
                                     <div class="col-md-3">
                                         <div class="p-2 border mb-3">
-                                            Color : <input type="checkbox" name="color[{{ $colorItem->id }}]" value="{{ $colorItem->id }}" > {{ $colorItem->name }}
+                                            Color : <input type="checkbox" name="colors[{{ $colorItem->id }}]" value="{{ $colorItem->id }}" > {{ $colorItem->name }}
                                             <br>
                                             Quantity : <input type="number" name="colorquantity[{{ $colorItem->id }}]" style="width: 70px; border:1px solid #DBDBDB; border-radius: 3px;">
 
