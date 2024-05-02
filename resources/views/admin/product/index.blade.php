@@ -6,7 +6,7 @@
     <div class="col-md-12 grid margin">
         <div class="card">
             <div class="card-header">
-                <h3>
+                <h3 class=" d-flex justify-content-between align-items-center">
                     Product
                     <a href="{{ route('products-create') }}" class="btn btn-primary text-white float-end">Add Product </a>
                 </h3>

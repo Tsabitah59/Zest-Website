@@ -83,7 +83,14 @@ class ProductController extends Controller
         $categories = Category::all();
         $brands = Brand::all();
         $product = Product::findOrFail($product_id);
-        return view('admin.product.edit', compact('categories', 'brands', 'product'));
+
+        // Added Color 
+        $productColor = $product->productColors->pluck('color_id')->toArray();
+
+        // Not Added Color
+        $colors = Color::whereNotIn('id', $productColor)->get();
+
+        return view('admin.product.edit', compact('categories', 'brands', 'product', 'colors'));
     }
 
     public function update(ProductRequest $request, $product_id) {

@@ -8,7 +8,7 @@
             <div class="card-header">
                 <h3>
                     Product
-                    <a href="{{ route('products-index') }}" class="btn btn-danger text-white float-end">back</a>
+                    <a href="{{ route('products-index') }}" class="btn btn-danger text-white">back</a>
                 </h3>
             </div>
     

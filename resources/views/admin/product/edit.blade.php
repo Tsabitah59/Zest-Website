@@ -7,8 +7,8 @@
         <div class="card">
             <div class="card-header">
                 <h3>
-                    Edit Product
-                    <a href="" class="btn btn-primary text-white float-end">Add Product</a>
+                    <span class="mt-2">Edit Product</span> 
+                    <a href="{{ route('products-index') }}" class="btn btn-primary text-white float-end">Back</a>
                 </h3>
             </div>
     
@@ -32,14 +32,21 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
                         </li>
+
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="seotag-tab" data-bs-toggle="tab" data-bs-target="#seotag-tab-pane" type="button" role="tab" aria-controls="seotag-tab-pane" aria-selected="false">SEO Tags</button>
                         </li>
+
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details-tab-pane" type="button" role="tab" aria-controls="details-tab-pane" aria-selected="false">Details</button>
                         </li>
+
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image-tab-pane" type="button" role="tab" aria-controls="image-tab-pane" aria-selected="false">Product Image</button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="color-tab" data-bs-toggle="tab" data-bs-target="#color-tab-pane" type="button" role="tab" aria-controls="color-tab-pane" aria-selected="false">Product Color</button>
                         </li>
                     </ul>
     
@@ -170,6 +177,66 @@
                                 <h4>No Image</h4>
                                 @endif
                             </div>
+                        </div>
+
+                        <!-- Color -->
+                        <div class="tab-pane fade" id="color-tab-pane" role="tabpanel" aria-labelledby="color-tab" tabindex="0">
+                            <!-- Belum Pernah Ditambahkan -->
+                            <div class="mt-3">
+                                <h4>Add Product Color</h4>
+                                <label for="">Select Color</label>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="row">
+                                        @forelse($colors as $colorItem)
+                                        <div class="col-md-3">
+                                            <div class="p-2 border mb-3">
+                                                Color: <input type="checkbox" name="colors[{{ $colorItem->id }}]" value="{{ $colorItem->id }}"> {{ $colorItem->name }}
+                                                <br>
+                                                Quantity: <input type="number" name="colorquantity[{{ $colorItem->id }}]" id="" style="width: 70px; border:1px solid #DBDBDB; border-radius: 3px;">
+                                            </div>
+                                        </div>
+
+                                        @empty
+                                        <div class="col-md-12">
+                                            Not Color Found
+                                        </div>
+                                        @endforelse
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Color Name</th>
+                                        <th>Quantity</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach($product->productColors as $productColor)
+                                    <tr>
+                                        <!-- Name -->
+                                        <td>
+
+                                        </td>
+
+                                        <!-- Quantity -->
+                                        <td>
+
+                                        </td>
+
+                                        <!-- Action -->
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            
                         </div>
     
                         <button type="submit" class="btn btn-primary text-white mt-3">Submit</button>
