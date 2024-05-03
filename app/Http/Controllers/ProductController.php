@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\ProductColor;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -164,5 +165,22 @@ class ProductController extends Controller
 
         $product->delete();
         return redirect()->back()->with('message', 'Delete Product Successfully');
+    }
+
+    public function updateProductColorQty(Request $request, $product_color_id) {
+        $productColorData   = ProductColor::find($product_color_id);
+
+        $productColorData->update([
+            'quantity'  => $request->quantity
+        ]);
+
+        return response()->json(['message' => 'Updated quantity successfully']); 
+    }
+
+    public function deleteProductColorQty($product_color_id) {
+        $productColor = ProductColor::findOrfail($product_color_id);
+        $productColor->delete();
+
+        return response()->json(['message' => 'delete color successfully']);
     }
 }

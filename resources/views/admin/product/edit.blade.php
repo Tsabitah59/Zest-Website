@@ -7,24 +7,24 @@
         <div class="card">
             <div class="card-header">
                 <h3>
-                    <span class="mt-2">Edit Product</span> 
+                    <span class="mt-2">Edit Product</span>
                     <a href="{{ route('products-index') }}" class="btn btn-primary text-white float-end">Back</a>
                 </h3>
             </div>
-    
+
             <div class="card-body">
                 @if(session('message'))
-                    <p class="alert alert-success">{{ session('message') }}</p>
+                <p class="alert alert-success">{{ session('message') }}</p>
                 @endif
-    
+
                 @if ($errors->any())
-                    <div class="alert alert-warning">
-                        @foreach($errors->all() as $error)
-                        <div>{{ $error }}</div>
-                        @endforeach
-                    </div>
+                <div class="alert alert-warning">
+                    @foreach($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                    @endforeach
+                </div>
                 @endif
-    
+
                 <form action="{{ route('products-update', $product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -49,7 +49,7 @@
                             <button class="nav-link" id="color-tab" data-bs-toggle="tab" data-bs-target="#color-tab-pane" type="button" role="tab" aria-controls="color-tab-pane" aria-selected="false">Product Color</button>
                         </li>
                     </ul>
-    
+
                     <div class="tab-content" id="myTabContent">
                         <!-- Home -->
                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -64,19 +64,19 @@
                                     @endforeach
                                 </select>
                             </div>
-    
+
                             <!-- Product Name Filed -->
                             <div class="mt-3">
                                 <label for="category">Product Name</label>
                                 <input type="text" value="{{ $product->name }}" name="name" class="form-control">
                             </div>
-    
+
                             <!-- Product Slug Filed -->
                             <div class="mt-3">
                                 <label for="category">Product Slug</label>
                                 <input type="text" value="{{ $product->slug }}" name="slug" class="form-control">
                             </div>
-    
+
                             <!-- Brand Filed -->
                             <div class="mt-3">
                                 <label for="category">Brand</label>
@@ -88,20 +88,20 @@
                                     @endforeach
                                 </select>
                             </div>
-    
+
                             <!-- Small Desc Filed -->
                             <div class="mt-3">
                                 <label for="category">Short Description</label>
                                 <textarea name="small_description" id="" cols="30" rows="5" class="form-control">{{ $product->small_description }}</textarea>
                             </div>
-    
+
                             <!-- Small Desc Filed -->
                             <div class="mt-3">
                                 <label for="category">Description</label>
                                 <textarea name="description" id="" cols="30" rows="5" class="form-control">{{ $product->description }}"</textarea>
                             </div>
                         </div>
-    
+
                         <!-- SEO Tags -->
                         <div class="tab-pane fade" id="seotag-tab-pane" role="tabpanel" aria-labelledby="seotag-tab" tabindex="0">
                             <!-- Meta Title Filed -->
@@ -109,20 +109,20 @@
                                 <label for="category">Meta Title</label>
                                 <input type="text" value="{{ $product->meta_title }}" name="meta_title" class="form-control">
                             </div>
-    
+
                             <!-- Meta Description Filed -->
                             <div class="mt-3">
                                 <label for="category">Meta Description</label>
                                 <textarea name="meta_description" class="form-control" rows="5">{{ $product->meta_description }}</textarea>
                             </div>
-    
+
                             <!-- Meta Keyword Filed -->
                             <div class="mt-3">
                                 <label for="category">Meta Keyword</label>
                                 <textarea name="meta_keyword" class="form-control" rows="5">{{ $product->meta_keyword }}</textarea>
                             </div>
                         </div>
-    
+
                         <!-- Details -->
                         <div class="tab-pane fade" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
                             <!-- Original Price Filed -->
@@ -130,39 +130,39 @@
                                 <label for="category">Original Price</label>
                                 <input type="number" value="{{ $product->original_price }}" name="original_price" class="form-control">
                             </div>
-    
+
                             <!-- Selling Price Filed -->
                             <div class="mt-3">
                                 <label for="category">Selling Price</label>
                                 <input type="number" value="{{ $product->selling_price }}" name="selling_price" class="form-control">
                             </div>
-    
+
                             <!-- Quantity Filed -->
                             <div class="mt-3">
                                 <label for="category">Quantity</label>
                                 <input type="number" value="{{ $product->quantity }}" name="quantity" class="form-control">
                             </div>
-    
+
                             <!-- Trending Filed -->
                             <div class="mt-3">
                                 <label for="category">Trending</label>
                                 <input type="checkbox" {{ $product->trending == '1' ? 'checked' : '' }} name="trending" style="width: 15px; height: 15px;">
                             </div>
-    
+
                             <!-- Status Filed -->
                             <div class="mt-3">
                                 <label for="category">Status</label>
                                 <input type="checkbox" {{ $product->status == '1' ? 'checked' : '' }} name="status" style="width: 15px; height: 15px;">
                             </div>
                         </div>
-    
+
                         <!-- Image -->
                         <div class="tab-pane fade" id="image-tab-pane" role="tabpanel" aria-labelledby="image-tab" tabindex="0">
                             <div class="mt-3">
                                 <label for="">Upload Product Image</label>
                                 <input type="file" name="image[]" multiple class="form-control">
                             </div>
-    
+
                             <div class="mt-3">
                                 @if($product->productImages)
                                 <div class="row">
@@ -203,62 +203,125 @@
                                             Not Color Found
                                         </div>
                                         @endforelse
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Color Name</th>
-                                            <th>Quantity</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-    
-                                    <tbody>
-                                        @foreach($product->productColors as $productColor)
-                                        <tr>
-                                            <!-- Name -->
-                                            <td>
-                                                @if($productColor->color)
-                                                {{ $productColor->color->name }}
-                                                <!--  -->
-                                                
-                                                @else
-                                                No Color Found
-    
-                                                @endif
-                                            </td>
-    
-                                            <!-- Quantity -->
-                                            <td>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control form-control-sm" style="width: 1px;">
-                                                    <button class="btn btn-primary btn-sm text-white">Update</button>
-                                                </div>
-    
-                                            </td>
-    
-                                            <!-- Action -->
-                                            <td>
-                                                <button class="btn btn-danger btn-sm text-white">Delete</button>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Color Name</th>
+                                                <th>Quantity</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach($product->productColors as $productColor)
+                                            <tr class="product-color-tr">
+                                                <!-- Name -->
+                                                <td>
+                                                    @if($productColor->color)
+                                                    {{ $productColor->color->name }}
+                                                    <!--  -->
+
+                                                    @else
+                                                    No Color Found
+
+                                                    @endif
+                                                </td>
+
+                                                <!-- Quantity -->
+                                                <td>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" value="{{ $productColor->quantity }}" class="productColorQuantity form-control form-control-sm" style="width: 1px;">
+                                                        <button type="button" value="{{ $productColor->id }}" class="updateProductColorBtn btn btn-primary btn-sm text-white">Update</button>
+                                                    </div>
+
+                                                </td>
+
+                                                <!-- Action -->
+                                                <td>
+                                                    <button class="deleteProductColorBtn btn btn-danger btn-sm text-white">Delete</button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
                             </div>
 
-                            
+                            <button type="submit" class="btn btn-primary text-white mt-3">Submit</button>
                         </div>
-    
-                        <button type="submit" class="btn btn-primary text-white mt-3">Submit</button>
-                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@endsection
+
+<!-- AJAX -->
+@section('scripts')
+
+<script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Update Quantity
+        $(document).on('click', '.updateProductColorBtn', function() {
+
+            // Mendapat ID Produk
+            var product_id = "{{ $product->id }}"
+
+            // Mendapai ID Color Product
+            var product_color_id = $(this).val();
+
+            // Mendapat Quantity
+            var quantity = $(this).closest('product-color-tr').find('.productColorQuantity');
+
+            if (quantity <= 0) {
+                alert('quantity is required');
+                return false;
+            }
+
+            var data = {
+                'product_id': product_id,
+                'quantity': quantity
+            }
+
+            $.ajax({
+                type    : "POST",
+                url     : "/admin/product-color/" + product_color_id,
+                data    : data,
+                success : function(respons) {
+                    alert(respons.message);
+
+                }
+            })
+        });
+
+        // Delete Color
+        $(document).on('click', '.deleteProductColorBtn', function() {
+            var product_color_id = $(this).val();
+            var thisClick = $(this)
+
+            $.ajax({
+                type    : "GET",
+                url     : "/admin/product-color/" + product_color_id + "/delete",
+                success : function(response) {
+                    thisClick.closest('.product-color-tr').remove();
+                    alert(response.message)
+                }
+            })
+        })
+    })
+</script>
 
 @endsection
