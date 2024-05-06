@@ -242,7 +242,7 @@
 
                                                 <!-- Action -->
                                                 <td>
-                                                    <button class="deleteProductColorBtn btn btn-danger btn-sm text-white">Delete</button>
+                                                    <button type="button" value="{{ $productColor->id }}" class="deleteProductColorBtn btn btn-danger btn-sm text-white">Delete</button>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -284,24 +284,29 @@
             var product_color_id = $(this).val();
 
             // Mendapat Quantity
-            var quantity = $(this).closest('product-color-tr').find('.productColorQuantity');
+            var quantity = $(this).closest('.product-color-tr').find('.productColorQuantity').val();
 
-            if (quantity <= 0) {
-                alert('quantity is required');
+            // if (quantity <= 0) {
+            //     alert('quantity is required');
+            //     return false;
+            // }
+
+            if (quantity <= 0 || isNaN(quantity)) {
+                alert('Quantity is required and must be a number greater than 0');
                 return false;
             }
 
             var data = {
                 'product_id': product_id,
                 'quantity': quantity
-            }
+            };
 
             $.ajax({
-                type    : "POST",
-                url     : "/admin/product-color/" + product_color_id,
-                data    : data,
-                success : function(respons) {
-                    alert(respons.message);
+                type: "POST",
+                url: "/admin/product-color/" + product_color_id,
+                data: data,
+                success: function(response) {
+                    alert(response.message);
 
                 }
             })
@@ -313,9 +318,9 @@
             var thisClick = $(this)
 
             $.ajax({
-                type    : "GET",
-                url     : "/admin/product-color/" + product_color_id + "/delete",
-                success : function(response) {
+                type: "GET",
+                url: "/admin/product-color/" + product_color_id + "/delete",
+                success: function(response) {
                     thisClick.closest('.product-color-tr').remove();
                     alert(response.message)
                 }

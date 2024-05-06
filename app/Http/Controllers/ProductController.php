@@ -16,19 +16,22 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $products = Product::all();
         return view('admin.product.index', compact('products'));
     }
 
-    public function create() {
+    public function create()
+    {
         $categories  = Category::all();
         $brands      = Brand::all();
         $colors      = Color::all();
         return view('admin.product.create', compact('categories', 'brands', 'colors'));
     }
 
-    public function store(ProductRequest $request) {
+    public function store(ProductRequest $request)
+    {
         $validatedData = $request->validated();
 
         $category = Category::findOrFail($validatedData['category_id']);
@@ -49,16 +52,16 @@ class ProductController extends Controller
             'meta_description'      => $validatedData['meta_description'],
         ]);
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $uploadPath = 'upload/product/';
 
             $i = 1;
-            foreach($request->file('image') as $imageFile) {
+            foreach ($request->file('image') as $imageFile) {
                 $extension = $imageFile->getClientOriginalExtension();
-                $fileName = time().$i++.'.'.$extension;
+                $fileName = time() . $i++ . '.' . $extension;
 
                 $imageFile->move($uploadPath, $fileName);
-                $finalImagePathName = $uploadPath.$fileName;
+                $finalImagePathName = $uploadPath . $fileName;
                 $product->productImages()->create([
                     'product_id'    => $product->id,
                     'image'         => $finalImagePathName
@@ -66,21 +69,21 @@ class ProductController extends Controller
             }
         }
 
-        if($request->colors) {
-            foreach($request->colors as $key => $color) {
+        if ($request->colors) {
+            foreach ($request->colors as $key => $color) {
                 $product->productColors()->create([
                     'product_id' => $product->id,
                     'color_id' => $color,
                     'quantity' => $request->colorquantity[$key] ?? 0
                 ]);
             }
-
         }
 
         return redirect()->route('products-index')->with('message', 'Product Added Auccessfully!');
     }
 
-    public function edit($product_id) {
+    public function edit($product_id)
+    {
         $categories = Category::all();
         $brands = Brand::all();
         $product = Product::findOrFail($product_id);
@@ -94,13 +97,14 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('categories', 'brands', 'product', 'colors'));
     }
 
-    public function update(ProductRequest $request, $product_id) {
+    public function update(ProductRequest $request, $product_id)
+    {
         $validatedData = $request->validated();
 
         $product = Category::findOrFail($validatedData['category_id'])
-                    ->products()->where('id', $product_id)->first();
+            ->products()->where('id', $product_id)->first();
 
-        if($product) {
+        if ($product) {
             $product->update([
                 'category_id'           => $validatedData['category_id'],
                 'name'                  => $validatedData['name'],
@@ -118,33 +122,43 @@ class ProductController extends Controller
                 'meta_description'      => $validatedData['meta_description'],
             ]);
 
-            if($request->hasFile('image')) {
+            if ($request->hasFile('image')) {
                 $uploadPath = 'upload/product/';
-    
+
                 $i = 1;
-                foreach($request->file('image') as $imageFile) {
+                foreach ($request->file('image') as $imageFile) {
                     $extension = $imageFile->getClientOriginalExtension();
-                    $fileName = time().$i++.'.'.$extension;
-    
+                    $fileName = time() . $i++ . '.' . $extension;
+
                     $imageFile->move($uploadPath, $fileName);
-                    $finalImagePathName = $uploadPath.$fileName;
+                    $finalImagePathName = $uploadPath . $fileName;
                     $product->productImages()->create([
                         'product_id'    => $product->id,
                         'image'         => $finalImagePathName
                     ]);
                 }
             }
-            return redirect()->route('products-index')->with('messege', 'Product Updated Successfully');
 
+            if ($request->colors) {
+                foreach ($request->colors as $key => $color) {
+                    $product->productColors()->create([
+                        'product_id' => $product->id,
+                        'color_id' => $color,
+                        'quantity' => $request->colorquantity[$key] ?? 0
+                    ]);
+                }
+            }
+
+            return redirect()->route('products-index')->with('messege', 'Product Updated Successfully');
         } else {
             return redirect()->route('products-index')->with('messege', 'No Product Found');
         }
-        
     }
 
-    public function deleteImage($id) {
+    public function deleteImage($id)
+    {
         $productImage = ProductImage::findOrFail($id);
-        if(File::exists($productImage->image)) {
+        if (File::exists($productImage->image)) {
             File::delete($productImage->image);
         }
 
@@ -152,33 +166,36 @@ class ProductController extends Controller
         return redirect()->back()->with('message', 'Picture Removed Successfully');
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $product = Product::findOrFail($id);
 
-        if($product->productImages) {
-            foreach($product->productImages as $image) {
-                if(File::exists($image->image)) {
+        if ($product->productImages) {
+            foreach ($product->productImages as $image) {
+                if (File::exists($image->image)) {
                     File::delete($image->image);
                 }
             }
-        } 
+        }
 
         $product->delete();
         return redirect()->back()->with('message', 'Delete Product Successfully');
     }
 
-    public function updateProductColorQty(Request $request, $product_color_id) {
+    public function updateProductColorQty(Request $request, $product_color_id)
+    {
         $productColorData   = ProductColor::find($product_color_id);
 
         $productColorData->update([
             'quantity'  => $request->quantity
         ]);
 
-        return response()->json(['message' => 'Updated quantity successfully']); 
+        return response()->json(['message' => 'Updated quantity successfully']);
     }
 
-    public function deleteProductColorQty($product_color_id) {
-        $productColor = ProductColor::findOrfail($product_color_id);
+    public function deleteProductColorQty($product_color_id)
+    {
+        $productColor = ProductColor::findOrFail($product_color_id);
         $productColor->delete();
 
         return response()->json(['message' => 'delete color successfully']);

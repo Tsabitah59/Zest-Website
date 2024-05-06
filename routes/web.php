@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\dashboardController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
         // Delete Image 
         Route::get('/products/delete-image/{id}', 'deleteImage')->name('products-delete-image');
 
+        // AJAX
         Route::post('/product/color/{product_color_id}', 'updateProductColorQty');
         Route::post('/product/color/{product_color_id}/delete', 'deleteProductColorQty');
     });
@@ -69,6 +71,13 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
         Route::get('/colors/edit/{id}', 'edit')->name('colors-edit');
         Route::put('/colors/update/{id}', 'update')->name('colors-update');
         Route::get('/colors/delete/{id}', 'delete')->name('colors-delete');
+    });
+
+    // 
+    Route::controller(SliderController::class)->group(function() {
+        Route::get('/slider', 'index')->name('slider-index');
+        Route::get('/slider/create', 'create')->name('slider-create');
+        Route::post('/slider/store', 'store')->name('slider-store');
     });
 });
 
