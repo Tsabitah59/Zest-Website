@@ -37,8 +37,8 @@
                             </td>
                             <td>{{ $slider->status == '0' ? 'Visible' : 'Hidden' }}</td>
                             <td>
-                                <a href="#" class="btn btn-success text-white btn-sm">Edit</a>
-                                <a href="#" class="btn btn-danger text-white btn-sm">Delete</a>
+                                <a href="{{ route('slider-edit', $slider->id) }}" class="btn btn-success text-white btn-sm">Edit</a>
+                                <a href="{{ route('slider-delete', $slider->id) }}" class="btn btn-danger text-white btn-sm">Delete</a>
                             </td>
                         </tr>
                         @endforeach
