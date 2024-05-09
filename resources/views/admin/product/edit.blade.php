@@ -187,6 +187,7 @@
                                 <label for="">Select Color</label>
 
                                 <hr>
+                                
                                 <div class="row">
                                     <div class="row">
                                         @forelse($colors as $colorItem)
