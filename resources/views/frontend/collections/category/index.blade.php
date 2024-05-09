@@ -14,7 +14,7 @@
             
             <div class="col-6 col-md-3">
                 <div class="category-card">
-                    <a href="{{ route('products-category', 'category_slug) }}">
+                    <a href="{{ route('products-category', $category->slug) }}">
                         <div class="category-card-img">
                             <img src="{{ asset('upload/category/'.$category->image) }}" class="w-100" alt="Category Image">
                         </div>

@@ -21,6 +21,15 @@ class FrontendController extends Controller
     }
 
     public function products($category_slug) {
-        return view('frontend.collections.category.index');
+        $category = Category::where('slug', $category_slug)->first();
+
+        // Menampilkan kategori jika datanya ada
+        if($category) {
+            $products = $category->products()->get();
+            return view('frontend.collections.products.index', compact('products', 'category'));
+        } else {
+            return redirect()->back();
+        }
+
     }
 }
