@@ -15,8 +15,8 @@
             <div class="col-6 col-md-3">
                 <div class="category-card">
                     <a href="{{ route('products-category', $category->slug) }}">
-                        <div class="category-card-img">
-                            <img src="{{ asset('upload/category/'.$category->image) }}" class="w-100" alt="Category Image">
+                        <div class="category-card-img" style="height: 1000px;">
+                            <img src="{{ asset('upload/category/'.$category->image) }}" class="w-100 h-100" alt="Category Image" style="object-fit: cover;">
                         </div>
                         <div class="category-card-body">
                             <h5>{{ $category->name }}</h5>
